@@ -1,0 +1,35 @@
+#summary Usage instructions
+#labels Featured
+
+= Introduction =
+
+There are three type of appenders for nagios.
+  # NagiosCountAppender : Stores the counting for exceptions logged in error level or above.
+  # NagiosAppender : Sends messages directly to nagios for level higher than info. Debugs & Trace are not sent.
+  # NagiosTaskAppender : Monitors for thread's status.
+
+= General =
+==Steps==
+  # Add nagios-logback-appender in your pom.
+<dependency>
+	<groupId>in.verse</groupId>
+	<artifactId>nagios-logback-appender</artifactId>
+	<version>1.0</version>
+</dependency>
+  # Configure passive services on nagios.
+  # Add appender in your logback xml
+ <appender name="CUSTOM3" class="in.verse.logback.nagios.NagiosCountAppender">
+		<nscaWebUrl></nscaWebUrl>
+		<nscaWebUserName></nscaWebUserName>
+		<nscaWebPassword></nscaWebPassword>
+		<hostname></hostname>
+		<servicename></servicename>
+		<sendDelay></sendDelay>
+		<warningCount></warningCount>
+		<criticalCount></criticalCount>
+	</appender>
+
+Host name is your machines name as configured in nagios. Service name is your service name as configured in nagios.
+SendDelay is time in minutes when count should be sent to nagios.
+warningCount/criticalCount is count of exceptions when nagios should say it warning & critical respectively.
+nscaWebUrl is the url were [http://wiki.smetj.net/wiki/Nscaweb] nsca web queue is running. 
