@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+
+	<property resource="nagios-logback.properties" />
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%level %date [%thread] [%file:%line] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="CUSTOM" class="in.verse.logback.nagios.NagiosAppender">
+		<nscaWebUrl>${nagios.logback.nscaweb.url}</nscaWebUrl>
+		<nscaWebUserName>${nagios.logback.nscaweb.username}</nscaWebUserName>
+		<nscaWebPassword>${nagios.logback.nscaweb.url}</nscaWebPassword>
+		<hostname>${nagios.logback.hostname}</hostname>
+		<servicename>${nagios.logback.servicename}</servicename>
+	</appender>
+	
+	<appender name="CUSTOM3" class="in.verse.logback.nagios.NagiosCountAppender">
+		<nscaWebUrl>${nagios.logback.nscaweb.url}</nscaWebUrl>
+		<nscaWebUserName>${nagios.logback.nscaweb.username}</nscaWebUserName>
+		<nscaWebPassword>${nagios.logback.nscaweb.url}</nscaWebPassword>
+		<hostname>${nagios.logback.hostname}</hostname>
+		<servicename>${nagios.logback.servicename}</servicename>
+		<sendDelay>1</sendDelay>
+		<warningCount>5</warningCount>
+		<criticalCount>10</criticalCount>
+		<reloadDelay>1</reloadDelay>
+	</appender>
+	
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		 <appender-ref ref="CUSTOM" />  
+		 <!--  <appender-ref ref="CUSTOM3" />  -->
+	</root>
+</configuration>
